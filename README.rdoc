@@ -1,0 +1,73 @@
+= Action Texter -- Easy SMS delivery the Rails way
+
+Action Texter is a framework for delivering text messages from Rails apps. Its
+designed to be immediately familiar to anyone who has used Action Mailer, and
+is in fact largely lifted from that project. Like Action Mailer, it is
+essentially a wrapper around Action Controller that allows methods to be defined
+for sending messages that use view templates to construct the body.
+
+Note: At the moment, this gem is pretty simple and only addresses its author's
+immediate needs. As such, testing is unaddressed (though should be simple to
+add in the spirit of Action Mailer tests), receiving messages isn't supported,
+and Twilio is fairly tightly coupled for delivery.
+
+== Sending SMS
+
+The framework works by initializing any instance variables you want to be
+available in the SMS template, followed by a call to +sms+ to deliver
+the message.
+
+This can be as simple as:
+
+  class Notifier < ActionTexter::Base
+    delivers_from '+14155551234'
+
+    def welcome(recipient)
+      @recipient = recipient
+      mail(:to => recipient)
+    end
+  end
+
+The body of the message is created by using an Action View template (regular
+ERB) that has the instance variables that are declared in the mailer action.
+
+So the corresponding body template for the method above could look like this:
+
+  Hello there, <%= @recipient %>. Thank you for signing up!
+
+Calling the method returns a Message object:
+
+  message = Notifier.welcome  # => Returns a ActionTexter::Message object
+  message.deliver             # => delivers the message
+
+Or you can just chain the methods together like:
+
+  Notifier.welcome.deliver    # Creates the email and sends it immediately
+
+== Setting defaults
+
+It is possible to set default values that will be used in every method in your Action Texter class. To implement this functionality, you just call the public class method <tt>default</tt> which you get for free from ActionTexter::Base. This method accepts a Hash as the parameter.
+
+Note that every value you set with this method will get over written if you use the same key in your texter method.
+
+== Download and installation
+
+The latest version of Action Texter can be installed with RubyGems:
+
+  % [sudo] gem install action_texter
+
+Source code can be downloaded from GitHub
+
+* https://github.com/sullman/action_texter
+
+
+== License
+
+Action Texter is released under the MIT license.
+
+
+== Support
+
+Bug reports and feature requests can be filed on GitHub
+
+* https://github.com/sullman/action_texter/issues
