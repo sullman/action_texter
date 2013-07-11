@@ -6,10 +6,12 @@ is in fact largely lifted from that project. Like Action Mailer, it is
 essentially a wrapper around Action Controller that allows methods to be defined
 for sending messages that use view templates to construct the body.
 
-Note: At the moment, this gem is pretty simple and only addresses its author's
+**Note:** At the moment, this gem is pretty simple and only addresses its author's
 immediate needs. As such, testing is unaddressed (though should be simple to
 add in the spirit of Action Mailer tests), receiving messages isn't supported,
-and Twilio is fairly tightly coupled for delivery.
+and Twilio is the only real delivery method. There are also plenty of places
+where the implementation is a bit sloppy, since I started by literally copying
+actionmailer and modifying from there.
 
 == Sending SMS
 
