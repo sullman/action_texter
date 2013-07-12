@@ -9,7 +9,7 @@ module ActionTexter
     end
 
     def encoded
-      @body
+      @body.strip
     end
 
     def destinations
