@@ -13,13 +13,7 @@ module ActionTexter
     end
 
     def destinations
-      if @to.is_a?(Array)
-        @to
-      elsif @to.is_a?(String)
-        @to.split(/\s*,+\s*|\s+/)   # split  on commas and/or whitespace
-      else
-        [@to]
-      end
+      [*@to]
     end
 
     def deliver

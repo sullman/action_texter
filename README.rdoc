@@ -26,12 +26,14 @@ This can be as simple as:
 
     def welcome(recipient)
       @recipient = recipient
-      mail(:to => recipient)
+      sms(:to => recipient)
     end
   end
 
+You can pass either a single recipient or an array of recipients via the :to option.
+
 The body of the message is created by using an Action View template (regular
-ERB) that has the instance variables that are declared in the mailer action.
+ERB) that has the instance variables that are declared in the texter action.
 
 So the corresponding body template for the method above could look like this:
 
@@ -44,7 +46,7 @@ Calling the method returns a Message object:
 
 Or you can just chain the methods together like:
 
-  Notifier.welcome.deliver    # Creates the email and sends it immediately
+  Notifier.welcome.deliver    # Creates the message and sends it immediately
 
 == Setting defaults
 
