@@ -13,7 +13,7 @@ module ActionTexter
     end
 
     def destinations
-      [@to]
+      [*@to]
     end
 
     def deliver
